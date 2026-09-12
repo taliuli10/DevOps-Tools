@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-01
+    container_name: app-web-p9
+    ports:
+      - "4000:3000"
+    environment:
+      - DB_HOST=banco
+      - DB_USER=root
+      - DB_PASSWORD=senha_segura
+      - DB_NAME=meudb
+    networks:
+      - rede-app
+    depends_on:
+      - banco
+
+  banco:
+    image: mysql:8
+    container_name: banco-mysql-p9
+    environment:
+      - MYSQL_ROOT_PASSWORD=senha_segura
+      - MYSQL_DATABASE=meudb
+    ports:
+      - "4001:3306"
+    volumes:
+      - dados-mysql-p9:/var/lib/mysql
+    networks:
+      - rede-app
+
+networks:
+  rede-app:
+    driver: bridge
+
+volumes:
+  dados-mysql-p9:

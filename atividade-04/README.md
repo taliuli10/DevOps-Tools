@@ -1,1 +1,1 @@
-# Atividade CI/CD
+Pipeline configurado com sucesso.

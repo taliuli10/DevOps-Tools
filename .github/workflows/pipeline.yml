@@ -1,0 +1,33 @@
+name: Pipeline CI/CD - Atividade 04
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  preparacao:
+    name: Job 1 - Preparação
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mensagem de Inicio
+        run: echo "Pipeline iniciado!"
+
+  teste:
+    name: Job 2 - Teste
+    needs: preparacao
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simular Testes
+        run: |
+          echo "Executando testes..."
+          echo "Testes concluídos com sucesso!"
+
+  finalizacao:
+    name: Job 3 - Finalização
+    needs: teste
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mensagem de Conclusao
+        run: echo "Pipeline finalizado com sucesso!"
